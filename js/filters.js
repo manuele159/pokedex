@@ -69,7 +69,6 @@ const filters = {
                 switch (key) {
                     case "type":
                         commonProps.pokemonList = filters.filterType(value);
-                        console.log("after", commonProps.pokemonList, value);
                         break;
                     case "color":
                         commonProps.pokemonList = filters.filterColor(value);

@@ -85,6 +85,7 @@ import cards from './cards';
     }
     const fetchAllFiltersData = async () => {
       const filtersData = {};
+      //The filters data can be obtained by the first endpoint load, but for exercise purpose I'm going to use the provided endpoints
       filtersData.type = await fetchFilterData(props.END_POINTS.TYPES);
       filtersData.color = await fetchFilterData(props.END_POINTS.COLORS);
       filtersData.gender = await fetchFilterData(props.END_POINTS.GENDER);
@@ -140,7 +141,7 @@ import cards from './cards';
       }
     }
     const showMore = () => {
-      commonProps.currentIndex = 20;
+      commonProps.currentIndex += 20;
       const nextPokemons = commonProps.pokemonList.slice(commonProps.currentIndex, commonProps.currentIndex + 20);
       nextPokemons?.forEach(pokemon => {
         cards.generateCard(pokemon);
