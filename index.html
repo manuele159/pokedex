@@ -7,7 +7,22 @@
     <title>Pokedex</title>
   </head>
   <body>
-    <div id="app"></div>
+    <main class="main">
+      <div class="loader__container hidden">
+        <span class="loader"></span>
+      </div>
+      <header class="header">
+        <div class="header__wrapper">
+          <img src="resources/logo.png" loading="lazy" alt="pokemon-logo">
+          <h1>Pokedex</h1>
+        </div>
+        <div class="search-wrapper">
+          <input type="text" placeholder="Search..." class="search-wrapper__input">
+        </div>
+      </header>
+      <section>
+      </section>
+    </main>
     <script type="module" src="js/main.js"></script>
   </body>
 </html>
