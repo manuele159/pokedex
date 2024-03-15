@@ -8,7 +8,7 @@
   </head>
   <body>
     <main class="main">
-      <div class="loader__container hidden">
+      <div class="loader__container js-loader hidden">
         <span class="loader"></span>
       </div>
       <header class="header">
@@ -17,10 +17,17 @@
           <h1>Pokedex</h1>
         </div>
         <div class="header__search">
-          <input type="text" placeholder="Search..." class="search-input">
+          <input type="text" placeholder="Search..." class="search-input js-filter-search">
         </div>
       </header>
-      <section>
+      <section class="container">
+        <aside class="filters">
+
+        </aside>
+        <div class="cards js-cards-container">
+
+        </div>
+        <button class="load-more-btn js-show-more">Load More</button>
       </section>
     </main>
     <script type="module" src="js/main.js"></script>
