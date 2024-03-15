@@ -6,7 +6,7 @@ const filters = {
         $filtersColorsContainer: null,
         $filtersGenderContainer: null,
         apliedFilters: { type: [], color: [], gender: [] },
-        text: "",
+        searchText: "",
         hidden: "hidden",
     },
     loadFilters: (filtersData) => {
@@ -63,7 +63,9 @@ const filters = {
         }
     },
     filterPokemonList: () => {
+        const $clearAll = commonProps.$clearAll;
         commonProps.pokemonList = commonProps.auxcommonProps;
+        let isEmpty = true;
         for (const [key, value] of Object.entries(filters.props.apliedFilters)) {
             if (Array.isArray(value) && value.length > 0) {
                 switch (key) {
@@ -79,9 +81,16 @@ const filters = {
                     default:
                         break;
                 }
+                $clearAll?.classList.remove(filters.props.hidden);
+                isEmpty = false;
             }
-            if (filters.props.text) {
-                commonProps.pokemonList = filters.filterName(filters.props.text, commonProps.pokemonList);
+            if (filters.props.searchText) {
+                $clearAll?.classList.remove(filters.props.hidden);
+                commonProps.pokemonList = filters.filterName(filters.props.searchText, commonProps.pokemonList);
+                isEmpty = false;
+            }
+            if(isEmpty){
+                $clearAll.classList.add(filters.props.hidden)
             }
         }
         cards.props.$cardsContainer.innerHTML = "";

@@ -22,6 +22,7 @@ import cards from './cards';
         filterColorContainerSelector: "js-filter-color",
         filterGenderContainerSelector: "js-filter-gender",
         emptyMsgSelector: "js-empty-msg",
+        clearAllFilterSelector: "js-clear-all",
       },
       $cardsContainer: null,
       $loader: null,
@@ -37,6 +38,7 @@ import cards from './cards';
       commonProps.$emptyMessage = document.querySelector("." + props.selectors.emptyMsgSelector);
       initFilter();
       initSearchInput();
+      initClearAll();
       props.$cardsContainer = document.querySelector("." + props.selectors.cardsContainerSelector);
       cards.props.$cardsContainer = props.$cardsContainer;
     }
@@ -47,11 +49,21 @@ import cards from './cards';
         clearTimeout(timeout);
         timeout = setTimeout(() => {
           const value = $searchInput.value;
-          filters.props.text = value.toLowerCase();
+          filters.props.searchText = value.toLowerCase();
           filters.filterPokemonList();
-        }, 500)
+        }, 300)
       })
     };
+    const initClearAll = () => {
+      commonProps.$clearAll = document.querySelector("."+props.selectors.clearAllFilterSelector);
+      commonProps.$clearAll.addEventListener("click", () => {
+        const $searchInput = document.querySelector("." + props.selectors.searchInputSelector);
+        $searchInput.value = "",
+        filters.props.searchText = "",
+        filters.props.apliedFilters = { type: [], color: [], gender: [] };
+        filters.filterPokemonList();
+      });
+    }
     const initFilter = () => {
       filters.props.$cardsContainer = props.$cardsContainer;
       filters.props.$filtersTypeContainer = document.querySelector("." + props.selectors.filterTypeContainerSelector);
