@@ -7,6 +7,7 @@ const filters = {
         $filtersGenderContainer: null,
         apliedFilters: { type: [], color: [], gender: [] },
         text: "",
+        hidden: "hidden",
     },
     loadFilters: (filtersData) => {
         if (filtersData) {
@@ -41,20 +42,24 @@ const filters = {
         return $div;
     },
     applyFilter: ($el, filter) => {
-        if (!$el || !filter) {
-            return;
-        }
-        const apliedFilters = filters.props.apliedFilters;
-        const dataFilter = $el.getAttribute(`data-${filter}`) || "";
-        if (apliedFilters) {
-            if (apliedFilters[`${filter}`].includes(dataFilter)) {
-                apliedFilters[`${filter}`] = apliedFilters[`${filter}`].filter(el => el !== dataFilter);
-                $el.classList.remove("mod--active");
-            } else {
-                apliedFilters[`${filter}`].push(dataFilter);
-                $el.classList.add("mod--active");
+        try {
+            if (!$el || !filter) {
+                return;
             }
-            filters.filterPokemonList();
+            const apliedFilters = filters.props.apliedFilters;
+            const dataFilter = $el.getAttribute(`data-${filter}`) || "";
+            if (apliedFilters) {
+                if (apliedFilters[`${filter}`].includes(dataFilter)) {
+                    apliedFilters[`${filter}`] = apliedFilters[`${filter}`].filter(el => el !== dataFilter);
+                    $el.classList.remove("mod--active");
+                } else {
+                    apliedFilters[`${filter}`].push(dataFilter);
+                    $el.classList.add("mod--active");
+                }
+                filters.filterPokemonList();
+            }
+        } catch (error) {
+            console.error('Error applying the filters:', error);
         }
     },
     filterPokemonList: () => {
@@ -82,7 +87,12 @@ const filters = {
         }
         cards.props.$cardsContainer.innerHTML = "";
         commonProps.currentIndex = 0;
-        commonProps.pokemonList.slice(commonProps.currentIndex, commonProps.currentIndex + 20)?.forEach(cards.generateCard);
+        if (commonProps.pokemonList.length > 0) {
+            commonProps.$emptyMessage.classList.add(filters.props.hidden);
+            commonProps.pokemonList.slice(commonProps.currentIndex, commonProps.currentIndex + 20)?.forEach(cards.generateCard);
+        } else {
+            commonProps.$emptyMessage.classList.remove(filters.props.hidden);
+        }
     },
     filterType: (types) => {
         return commonProps.pokemonList.filter(pokemon => pokemon.types.some(t => types.includes(t.type.name)))

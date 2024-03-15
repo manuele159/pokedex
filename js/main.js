@@ -11,7 +11,7 @@ import cards from './cards';
         NATIONAL: "/pokedex/national",
         TYPES: "/type",
         GENDER: "/gender",
-        COLORS: "/pokemon-color" 
+        COLORS: "/pokemon-color"
       },
       selectors: {
         searchInputSelector: "js-filter-search",
@@ -33,15 +33,15 @@ import cards from './cards';
       initFetching();
     }
     const initElements = () => {
-      props.$loader = document.querySelector("."+props.selectors.loaderContainerSelector);
-      commonProps.$emptyMessage = document.querySelector("."+ props.selectors.emptyMsgSelector);
+      props.$loader = document.querySelector("." + props.selectors.loaderContainerSelector);
+      commonProps.$emptyMessage = document.querySelector("." + props.selectors.emptyMsgSelector);
       initFilter();
       initSearchInput();
-      props.$cardsContainer = document.querySelector("."+props.selectors.cardsContainerSelector);
+      props.$cardsContainer = document.querySelector("." + props.selectors.cardsContainerSelector);
       cards.props.$cardsContainer = props.$cardsContainer;
     }
     const initSearchInput = () => {
-      const $searchInput = document.querySelector("."+props.selectors.searchInputSelector);
+      const $searchInput = document.querySelector("." + props.selectors.searchInputSelector);
       let timeout;
       $searchInput.addEventListener("keyup", () => {
         clearTimeout(timeout);
@@ -54,33 +54,33 @@ import cards from './cards';
     };
     const initFilter = () => {
       filters.props.$cardsContainer = props.$cardsContainer;
-      filters.props.$filtersTypeContainer = document.querySelector("."+props.selectors.filterTypeContainerSelector);
-      filters.props.$filtersColorsContainer = document.querySelector("."+props.selectors.filterColorContainerSelector);
-      filters.props.$filtersGenderContainer = document.querySelector("."+props.selectors.filterGenderContainerSelector);
+      filters.props.$filtersTypeContainer = document.querySelector("." + props.selectors.filterTypeContainerSelector);
+      filters.props.$filtersColorsContainer = document.querySelector("." + props.selectors.filterColorContainerSelector);
+      filters.props.$filtersGenderContainer = document.querySelector("." + props.selectors.filterGenderContainerSelector);
     }
     const initFetching = async () => {
       fetchPokemonData(props.API_URL + props.END_POINTS.NATIONAL)
-      .then(async (entries) => {
-        const promises = entries.pokemon_entries.map(processPokemonEntry);
-        return Promise.all(promises);
-      })
-      .then((processedPokemons) => {
-        if (processedPokemons?.length > 0) {
-          commonProps.pokemonList?.push(...processedPokemons);
-          commonProps.pokemonList.sort((a, b) => a.id - b.id);
-          commonProps.pokemonList.slice(commonProps.currentIndex, commonProps.currentIndex+ 20)?.forEach(pokemon => {
-            cards.generateCard(pokemon, props.$cardsContainer);
-          });
-          commonProps.auxcommonProps = commonProps.pokemonList;
-          const btn = document.querySelector("." + props.selectors.loadMoreBtnSelector)
-          btn?.addEventListener("click", showMore);
-        }
-        hideLoader();
-      })
-      .catch(error => {
-        hideLoader();
-        console.error('Error:', error);
-      });
+        .then(async (entries) => {
+          const promises = entries.pokemon_entries.map(processPokemonEntry);
+          return Promise.all(promises);
+        })
+        .then((processedPokemons) => {
+          if (processedPokemons?.length > 0) {
+            commonProps.pokemonList?.push(...processedPokemons);
+            commonProps.pokemonList.sort((a, b) => a.id - b.id);
+            commonProps.pokemonList.slice(commonProps.currentIndex, commonProps.currentIndex + 20)?.forEach(pokemon => {
+              cards.generateCard(pokemon, props.$cardsContainer);
+            });
+            commonProps.auxcommonProps = commonProps.pokemonList;
+            const btn = document.querySelector("." + props.selectors.loadMoreBtnSelector)
+            btn?.addEventListener("click", showMore);
+          }
+          hideLoader();
+        })
+        .catch(error => {
+          hideLoader();
+          console.error('Error:', error);
+        });
       fetchAllFiltersData();
     }
     const fetchAllFiltersData = async () => {
@@ -112,7 +112,7 @@ import cards from './cards';
         const specieData = await fetchPokemonData(entry.pokemon_species.url);
         const variationData = await fetchPokemonData(specieData.varieties[0].pokemon.url);
         if (specieData && variationData) {
-          pokemon = buildPokemonObj(specieData, variationData); 
+          pokemon = buildPokemonObj(specieData, variationData);
           Object.assign(pokemon, variationData);
         }
         return pokemon;
@@ -140,10 +140,10 @@ import cards from './cards';
       }
     }
     const showMore = () => {
-      commonProps.currentIndex= 20;
-        const nextPokemons = commonProps.pokemonList.slice(commonProps.currentIndex, commonProps.currentIndex+ 20);
-        nextPokemons?.forEach(pokemon => {
-          cards.generateCard(pokemon);
+      commonProps.currentIndex = 20;
+      const nextPokemons = commonProps.pokemonList.slice(commonProps.currentIndex, commonProps.currentIndex + 20);
+      nextPokemons?.forEach(pokemon => {
+        cards.generateCard(pokemon);
       });
     }
     const showLoader = () => {
@@ -155,4 +155,4 @@ import cards from './cards';
     init();
   }
   document.addEventListener("DOMContentLoaded", pokedex);
-  })();
+})();

@@ -136,12 +136,13 @@ body {
               .type {
                 .type-mix-in();
               }
-            }
-            .mod{
-                &--active{
-                    border: 1px solid #000;
+                .mod {
+                    &--active {
+                        border: 1px solid #000;
+                    }
                 }
             }
+
             &__color{
                 display: flex;
                 flex-wrap: wrap;
@@ -207,11 +208,33 @@ body {
             flex-direction: row;
         }
         .container {
+            margin: 10px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            grid-template-areas:
+            "sidebar main main main"
+            ". footer footer footer";
+            .filters{
+                grid-area: sidebar;
+                &__gender > div,
+                &__type > div,
+                &__color > div{
+                    cursor: pointer;
+                }
+            }
             .cards {
+                grid-area: main;
                 display: grid;
                 grid-auto-rows: auto;
                 grid-gap: 1rem;
                 grid-template-columns: repeat(4, 1fr);
+            }
+            .btn-load-more{
+                grid-area: footer;
+            }
+            .btn-load-more{
+                cursor: pointer;
             }
         }
     }
