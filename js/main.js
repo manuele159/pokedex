@@ -1,4 +1,6 @@
 import '../less/main.less';
+import filters from './filters';
+import cards from './cards';
 
 (() => {
   const pokedex = () => {
@@ -19,10 +21,11 @@ import '../less/main.less';
       auxPokemonList: [],
       pokemonList: [],
       currentIndex: 0,
+      $cardsContainer: null,
     }
-    
     const init = () => {
       const loader = document.querySelector("."+props.selectors.searchInputSelector);
+      props.$cardsContainer = document.querySelector("."+props.selectors.cardsContainerSelector);
       initFetching(loader);
     }
     const fetchPokemonData = async function (url) {
@@ -45,7 +48,9 @@ import '../less/main.less';
         if (processedPokemons?.length > 0) {
           props.pokemonList.push(...processedPokemons);
           props.pokemonList.sort((a, b) => a.id - b.id);
-          console.log(props.pokemonList);
+          props.pokemonList.slice(props.currentIndex, props.currentIndex + 20)?.forEach(pokemon => {
+            cards.generateCard(pokemon, props.$cardsContainer);
+          });
           props.auxPokemonList = props.pokemonList;
           const btn = document.querySelector("." + props.selectors.loadMoreBtnSelector)
           btn?.addEventListener("click", showMore);

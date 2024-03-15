@@ -17,14 +17,11 @@ body {
 
 .main {
     .header {
-        display: flex;
-        align-items: center;
+        .flex-aling-center();
         flex-direction: column;
-        height: 100px;
         margin: 10px;
         &__logo {
-            display: flex;
-            align-items: center;
+            .flex-aling-center();
             justify-content: center;
             margin: 0 auto;
             text-transform: uppercase;
@@ -52,6 +49,65 @@ body {
                 font-size: @font-size-search;
                 padding: 10px;
             }
+        }
+    }
+    .container{
+        .cards {
+            padding: 10px;
+            .pokemon-card {
+                    position: relative;
+                    padding: 30px 20px;
+                    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+                    border-radius: 10px;
+                    &__img {
+                        display: block;
+                        width: 100%;
+                        max-width: 300px;
+                        height: auto;
+                        aspect-ratio: 125/83;
+                        position: relative;
+                        margin: 20px auto;
+                    }
+            
+                    &__name {
+                        text-align: center;
+                        font-weight: 600;
+                    }
+            
+                    &__stats {
+                        .flex-aling-center();
+                        justify-content: space-between;
+                        text-align: center;
+            
+                        p {
+                            color: @font-stats-color;
+                        }
+                    }
+                    &__types {
+                        display: flex;
+                        justify-content: space-around;
+                        margin: 20px 0 40px 0;
+            
+                        .type {
+                            .type-mix-in();
+                        }
+                    }
+                    &__id {
+                        text-align: center;
+                    }
+                    &__hp,
+                    &__id {
+                        font-weight: 800;
+                    }
+                    &__hp {
+                        width: 80px;
+                        background-color: #ffffff;
+                        text-align: center;
+                        padding: 8px 0;
+                        border-radius: 30px;
+                        margin-left: auto;
+                    }
+                }
         }
     }
     .loader__container {
@@ -105,6 +161,14 @@ body {
     .main {
         .header {
             flex-direction: row;
+        }
+        .container {
+            .cards {
+                display: grid;
+                grid-auto-rows: auto;
+                grid-gap: 1rem;
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
     }
 }
