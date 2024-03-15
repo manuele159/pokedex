@@ -54,7 +54,6 @@ body {
     }
     .container{
         .cards {
-            padding: 10px;
             .pokemon-card {
                     position: relative;
                     padding: 30px 20px;
@@ -121,6 +120,37 @@ body {
                 margin: 30px auto;
                 border: none;
                 border-radius: 5px;
+            }
+        }
+        .filters, .cards{
+            padding: 10px;
+        }
+        .filters {
+            & > * {
+                margin-bottom: 10px;
+            }
+            &__type {
+            .flex-aling-center();
+              flex-wrap: wrap;
+              gap: 1em;
+              .type {
+                .type-mix-in();
+              }
+            }
+            .mod{
+                &--active{
+                    border: 1px solid #000;
+                }
+            }
+            &__color{
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2em;
+                & > div{
+                    border: 1px solid black;
+                    width: 30px;
+                    height: 30px;
+                }
             }
         }
     }

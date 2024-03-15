@@ -15,7 +15,6 @@ const cards = {
         if (!data) {
             return;
         }
-        const $cardsContainer = cards.props.$cardsContainer;
         const $card = document.createElement("article");
         const id = data.id ? cards.generatePokemonId(data.id) : "#0000";
         const hp = data.stats[0].base_stat;
@@ -30,7 +29,7 @@ const cards = {
         $card.innerHTML = cards.cardBody({ hp, imgSrc, pokeName, id, statAttack, statDefense, statSpeed, gender });
         cards.appendTypes(data.types, $card);
         cards.styleCard(data.color, $card);
-        $cardsContainer.appendChild($card);
+        cards.props.$cardsContainer.appendChild($card);
     },
     cardBody: ({ hp, imgSrc, pokeName, id, statAttack, statDefense, statSpeed, gender }) => {
         return `
