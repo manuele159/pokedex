@@ -1,6 +1,6 @@
 const cards = {
     props: {
-
+        $cardsContainer: null,
     },
     generatePokemonId: (id) => {
         return '#' + String(id).padStart(4, '0');
@@ -11,10 +11,11 @@ const cards = {
           return `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${id}.png`
         }
     },
-    generateCard: (data, $cardsContainer) => {
-        if (!data || !$cardsContainer) {
+    generateCard: (data) => {
+        if (!data) {
             return;
         }
+        const $cardsContainer = cards.props.$cardsContainer;
         const $card = document.createElement("article");
         const id = data.id ? cards.generatePokemonId(data.id) : "#0000";
         const hp = data.stats[0].base_stat;

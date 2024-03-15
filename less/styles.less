@@ -19,7 +19,8 @@ body {
     .header {
         .flex-aling-center();
         flex-direction: column;
-        margin: 10px;
+        margin: 0 10px;
+        padding-top: 10px;
         &__logo {
             .flex-aling-center();
             justify-content: center;
@@ -108,6 +109,19 @@ body {
                         margin-left: auto;
                     }
                 }
+        }
+        .btn{
+            &-load-more{
+                display: block;
+                padding: 15px 60px;
+                font-size: 18px;
+                background-color: @btn-loadmore;
+                color: #ffffff;
+                position: relative;
+                margin: 30px auto;
+                border: none;
+                border-radius: 5px;
+            }
         }
     }
     .loader__container {

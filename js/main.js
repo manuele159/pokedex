@@ -22,11 +22,18 @@ import cards from './cards';
       pokemonList: [],
       currentIndex: 0,
       $cardsContainer: null,
+      $loader: null,
+      hidden: "hidden",
     }
     const init = () => {
-      const loader = document.querySelector("."+props.selectors.searchInputSelector);
+      props.$loader = document.querySelector("."+props.selectors.loaderContainerSelector);
+      initCardsContainer();
+      showLoader()
+      initFetching();
+    }
+    const initCardsContainer = () => {
       props.$cardsContainer = document.querySelector("."+props.selectors.cardsContainerSelector);
-      initFetching(loader);
+      cards.props.$cardsContainer = props.$cardsContainer;
     }
     const fetchPokemonData = async function (url) {
       try {
@@ -54,9 +61,11 @@ import cards from './cards';
           props.auxPokemonList = props.pokemonList;
           const btn = document.querySelector("." + props.selectors.loadMoreBtnSelector)
           btn?.addEventListener("click", showMore);
+          hideLoader();
         }
       })
       .catch(error => {
+        hideLoader();
         console.error('Error:', error);
       });
     }
@@ -94,7 +103,17 @@ import cards from './cards';
       }
     }
     const showMore = () => {
-      console.log("LOAD MORE")
+      props.currentIndex += 20;
+        const nextPokemons = props.pokemonList.slice(props.currentIndex, props.currentIndex + 20);
+        nextPokemons?.forEach(pokemon => {
+          cards.generateCard(pokemon);
+      });
+    }
+    const showLoader = () => {
+      props.$loader.classList.remove(props.hidden);
+    }
+    const hideLoader = () => {
+      props.$loader.classList.add(props.hidden);
     }
     init();
   }
