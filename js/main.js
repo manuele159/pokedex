@@ -21,7 +21,7 @@ import cards from './cards';
         filterTypeContainerSelector: "js-filter-type",
         filterColorContainerSelector: "js-filter-color",
         filterGenderContainerSelector: "js-filter-gender",
-
+        emptyMsgSelector: "js-empty-msg",
       },
       $cardsContainer: null,
       $loader: null,
@@ -34,6 +34,7 @@ import cards from './cards';
     }
     const initElements = () => {
       props.$loader = document.querySelector("."+props.selectors.loaderContainerSelector);
+      commonProps.$emptyMessage = document.querySelector("."+ props.selectors.emptyMsgSelector);
       initFilter();
       initSearchInput();
       props.$cardsContainer = document.querySelector("."+props.selectors.cardsContainerSelector);
